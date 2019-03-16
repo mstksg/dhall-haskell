@@ -119,6 +119,7 @@ import Lens.Family (LensLike', set, view)
 import Numeric.Natural (Natural)
 import Prelude hiding (maybe, sequence)
 import System.FilePath (takeDirectory)
+import Debug.Trace
 
 import qualified Control.Applicative
 import qualified Control.Exception
@@ -1517,8 +1518,8 @@ union (UnionType (Data.Functor.Compose.Compose mp)) = Type
     extractF e0 = do
       UnionLit fld e1 rest <- Just e0
       t <- Dhall.Map.lookup fld mp
-      guard $ Dhall.Map.toMap rest
-           == Dhall.Map.toMap (Dhall.Map.delete fld expect)
+      guard $ traceShowId (Dhall.Map.toMap rest)
+           == traceShowId (Dhall.Map.toMap (Dhall.Map.delete fld expect))
       Dhall.extract t e1
 
 -- | Parse a single constructor of a union
