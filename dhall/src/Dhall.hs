@@ -1518,7 +1518,7 @@ union (UnionType (Data.Functor.Compose.Compose mp)) = Type
     extractF e0 = do
       UnionLit fld e1 rest <- Just e0
       t <- Dhall.Map.lookup fld mp
-      guard $ traceShowId (Dhall.Map.toMap rest)
+      guard . traceShowId $ traceShowId (Dhall.Map.toMap rest)
            == traceShowId (Dhall.Map.toMap (Dhall.Map.delete fld expect))
       Dhall.extract t e1
 
